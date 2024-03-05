@@ -43,24 +43,22 @@ def filter_noise(img_set, newpath, folder, sub_folder):
 # newpath = "C:\\Users\\evely\\CSE 455\\455finproj\\processed_data\\"
 path = "C:\\Users\\bt084\\455finproj\\wheres-waldo\\Hey-Waldo\\"
 newpath = "C:\\Users\\bt084\\455finproj\\processed_data\\"
-# folders = ["64", "128", "256", "original-images"]
-# folders = ["64", "64-bw", "64-gray", "128", "128-bw", "128-gray", "256", "256-bw", "256-gray", "original-images"]
-folders = ["original-images"]
+folders_gray = ["64-gray", "128-gray", "256-gray"]
 sub_folders = ["notwaldo", "waldo"]
-for folder in folders:
-    folder += "\\"
-    if folder == "original-images\\":
-        im_names = glob(os.path.join(path + folder, "*.jpg"))
-        convert_and_save(im_names, newpath, folder, sub_folder="")
+for folder in folders_gray:
+    for sub_folder in sub_folders:
+        folder += "\\"
+        im_names = glob(os.path.join(path + folder + sub_folder, "*.jpg"))
+        filter_noise(im_names, newpath, folder, sub_folder + "\\")
 
-    else:
-        for sub_folder in sub_folders:
-            im_names = glob(os.path.join(path + folder + sub_folder, "*.jpg"))
-            convert_and_save(im_names, newpath, folder, sub_folder + "\\")
-
-# folders_gray = ["64-gray", "128-gray", "256-gray"]
-# for folder in folders_gray:
-#     for sub_folder in sub_folders:
-#         folder += "\\"
-#         im_names = glob(os.path.join(path + folder + sub_folder, "*.jpg"))
-#         filter_noise(im_names, newpath, folder, sub_folder + "\\")
+# folders = ["64", "64-bw", "64-gray", "128", "128-bw", "128-gray", "256", "256-bw", "256-gray", "original-images"]
+# for folder in folders:
+#     folder += "\\"
+#     if folder == "original-images\\":
+#         im_names = glob(os.path.join(path + folder, "*.jpg"))
+#         convert_and_save(im_names, newpath, folder, sub_folder="")
+#
+#     else:
+#         for sub_folder in sub_folders:
+#             im_names = glob(os.path.join(path + folder + sub_folder, "*.jpg"))
+#             convert_and_save(im_names, newpath, folder, sub_folder + "\\")
