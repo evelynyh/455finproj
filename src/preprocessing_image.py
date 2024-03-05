@@ -17,16 +17,14 @@ def convert_and_save(im_names, newpath, folder, sub_folder):
 
 # noise filter: evelyn
 # takes a while; only use when necessary
-def filter_noise(img_set, newpath, folder, sub_folder):
-    for x in img_set:
-        im = load_image(x)
-        w = im.w
-        h = im.h
+def filter_noise(im_names, newpath, folder, sub_folder):
+    for im_name in im_names:
+        im = load_image(im_name)
 
-        print("in "+x)
-        im = bilinear_resize(im, (int)(w*20), (int)(h*20))
+        print("in "+im_name)
+        im = bilinear_resize(im, (int)(im.w*20), (int)(im.h*20))
         im = convolve_image(im, make_gaussian_filter(1), 0)
-        im = bilinear_resize(im, (int)(w*40), (int)(h*40))
+        im = bilinear_resize(im, (int)(im.w*40), (int)(im.h*40))
         im = convolve_image(im, make_gaussian_filter(2), 0)
 
         i = 0
@@ -35,8 +33,8 @@ def filter_noise(img_set, newpath, folder, sub_folder):
                 im.data[i] = 1
             i = i+1
 
-        im = bilinear_resize(im, w, h)
-        save_image(im, newpath + folder + sub_folder + os.path.basename(x))
+        im = bilinear_resize(im, im.w, im.h)
+        save_image(im, newpath + folder + sub_folder + Path(im_name).stem)
 
 
 # path = "C:\\Users\\evely\\CSE 455\\455finproj\\src\\wheres-waldo\\Hey-Waldo\\"
